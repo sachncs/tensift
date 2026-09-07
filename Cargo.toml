@@ -31,7 +31,7 @@ clap = { version = "4", features = ["derive"] }
 env_logger = "0.11"
 
 # Dev dependencies
-criterion = { version = "0.7", features = ["html_reports"] }
+criterion = { version = "0.8", features = ["html_reports"] }
 proptest = "1.5"
 
 [profile.release]

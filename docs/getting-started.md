@@ -124,7 +124,7 @@ cargo run -p tensift-cli -- 8633 15 30 100 12345
 
 ```toml
 [dependencies]
-tensift-algebra = { path = "path/to/tensift/crates/algebra" }
+tensift-algebra = { path = "path/to/tensift/crates/tensift-algebra" }
 rug = "1.29"
 ```
 
@@ -174,23 +174,47 @@ fn main() {
 
 ### Using Individual Stages
 
+If you need finer-grained control than `factorize` provides, you can drive
+the lattice and tensor-network stages yourself. The names below match the
+actual exports in `tensift-lattice`, `tensift-tensor`, and
+`tensift-algebra`.
+
 ```rust
-use tensift_lattice::{Lattice, LatticeConfig};
-use tensift_tensor::TensorNetwork;
-use tensift_algebra::smoothness::SmoothnessTester;
+use rand::SeedableRng;
+use rand_chacha::ChaCha8Rng;
+use rug::Integer;
+use tensift_lattice::{
+    babai::{babai_rounding, compute_gram_schmidt, reduce_basis_lll},
+    lattice::SchnorrLattice,
+};
 
-// Stage 1: Build Schnorr lattice
-let lattice_config = LatticeConfig::new(8633, 10);
-let lattice = Lattice::new(&lattice_config);
+// Stage 1: Build the Schnorr lattice for N.
+let mut rng = ChaCha8Rng::seed_from_u64(42);
+let n = Integer::from(8633u64);
+let lattice = SchnorrLattice::new(10, &n, 1.0, &mut rng);
 
-// Stage 2: Reduce basis
-let reduced = lattice.lll_reduce();
+// Stage 2: Reduce the basis with LLL.
+let mut basis = lattice.basis.clone();
+reduce_basis_lll(&mut basis);
 
-// Stage 3: Find CVP approximation
-let cvp_result = reduced.babai_cvp();
+// Stage 3: Babai-rounding CVP approximation.
+let gso = compute_gram_schmidt(&basis);
+let babai = babai_rounding(&lattice.target, &gso, &basis);
 
-// Continue with tensor network stages...
+// Stage 4-5 (not shown) would feed `babai` residuals into a TTN ansatz
+// from `tensift_tensor::ttn::TreeTensorNetwork` and run a sampler.
+//
+// Stage 6: smoothness testing lives in `tensift_algebra::smoothness`
+// (`SmoothnessBasis::new`, `factor_smooth`, `try_build_sr_pair`).
+//
+// Stage 7: factor extraction lives in `tensift_algebra::factor::factorize`,
+// which internally calls the GF(2) solver from `tensift_algebra::gf2_solver`.
 ```
+
+Most users should not need to drop down to individual stages. The
+top-level `factorize` function wires them all together and is the entry
+point you should prefer unless you have a specific reason to skip or
+replace a stage.
 
 ---
 
@@ -201,7 +225,7 @@ let cvp_result = reduced.babai_cvp();
 | Parameter | Description | Range | Default |
 |-----------|-------------|-------|---------|
 | `n` | Lattice dimension | 5-100 | Auto |
-| `pi_2` | Smoothness basis size | n-2n | 2×n |
+| `pi_2` | Smoothness basis size | n to 2n | 2×n |
 | `reduce_mode` | Lattice reduction strategy | `ReductionMode` | LLL |
 
 ### Tensor Network Parameters

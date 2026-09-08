@@ -5,7 +5,7 @@
 set -euo pipefail
 
 echo "tensift Development Environment Setup"
-echo "=================================="
+echo "======================================"
 
 # Colors for output
 RED='\033[0;31m'
@@ -13,13 +13,61 @@ GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 NC='\033[0m' # No Color
 
-# Check if Rust is installed
+# Determine the rustup installer signature URL for the channel we want.
+# Pinning a specific channel keeps the install reproducible across hosts.
+RUSTUP_CHANNEL="${RUSTUP_CHANNEL:-stable}"
+RUSTUP_SHA256_URL="https://static.rust-lang.org/rustup/archive/${RUSTUP_CHANNEL}/x86_64-unknown-linux-gnu/rustup-init.sha256"
+RUSTUP_INSTALLER_URL="https://static.rust-lang.org/rustup/dist/x86_64-unknown-linux-gnu/rustup-init"
+RUSTUP_SHA_FILE="$(mktemp -t rustup-init.sha256.XXXXXX)"
+RUSTUP_INSTALLER="$(mktemp -t rustup-init.XXXXXX)"
+trap 'rm -f "${RUSTUP_SHA_FILE}" "${RUSTUP_INSTALLER}"' EXIT
+
+# Check if Rust is installed at the expected MSRV (1.88) or newer.
+MIN_RUST_VERSION="1.88.0"
+needs_install=0
 if ! command -v rustc &> /dev/null; then
-    echo -e "${YELLOW}Rust not found. Installing...${NC}"
-    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-    source "$HOME/.cargo/env"
+    needs_install=1
 else
-    echo -e "${GREEN}Rust found: $(rustc --version)${NC}"
+    current_version="$(rustc --version | awk '{print $2}')"
+    if [ "$(printf '%s\n' "${MIN_RUST_VERSION}" "${current_version}" | sort -V | head -n1)" != "${MIN_RUST_VERSION}" ]; then
+        echo -e "${YELLOW}Found rustc ${current_version}; need >= ${MIN_RUST_VERSION}.${NC}"
+        needs_install=1
+    else
+        echo -e "${GREEN}Rust found: $(rustc --version)${NC}"
+    fi
+fi
+
+if [ "${needs_install}" -eq 1 ]; then
+    echo -e "${YELLOW}Installing rustup (channel=${RUSTUP_CHANNEL}) with checksum verification...${NC}"
+
+    # Download the rustup installer and its published SHA256.
+    if ! curl --proto '=https' --tlsv1.2 --fail --silent --show-error \
+            -o "${RUSTUP_INSTALLER}" "${RUSTUP_INSTALLER_URL}"; then
+        echo -e "${RED}Failed to download rustup installer from ${RUSTUP_INSTALLER_URL}${NC}" >&2
+        echo -e "${RED}Verify your network/proxy settings and rerun.${NC}" >&2
+        exit 1
+    fi
+    if ! curl --proto '=https' --tlsv1.2 --fail --silent --show-error \
+            -o "${RUSTUP_SHA_FILE}" "${RUSTUP_SHA256_URL}"; then
+        echo -e "${RED}Failed to download rustup checksum from ${RUSTUP_SHA256_URL}${NC}" >&2
+        echo -e "${RED}Refusing to execute an installer without integrity verification.${NC}" >&2
+        exit 1
+    fi
+
+    # Verify the installer against the published digest. `sha256sum -c` reads
+    # "<sha> <file>" lines; rewrite the file path to match the download.
+    expected_sha="$(awk '{print $1}' "${RUSTUP_SHA_FILE}")"
+    actual_sha="$(sha256sum "${RUSTUP_INSTALLER}" | awk '{print $1}')"
+    if [ "${expected_sha}" != "${actual_sha}" ]; then
+        echo -e "${RED}rustup installer checksum mismatch:${NC}" >&2
+        echo -e "${RED}  expected: ${expected_sha}${NC}" >&2
+        echo -e "${RED}  actual:   ${actual_sha}${NC}" >&2
+        exit 1
+    fi
+    echo -e "${GREEN}rustup installer checksum verified.${NC}"
+
+    sh "${RUSTUP_INSTALLER}" -y --default-toolchain "${RUSTUP_CHANNEL}" --profile minimal --no-modify-path
+    source "$HOME/.cargo/env"
 fi
 
 # Ensure cargo is available

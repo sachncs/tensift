@@ -8,10 +8,10 @@ authors = ["Sachin <sachncs@gmail.com>"]
 edition = "2024"
 rust-version = "1.88"
 license = "MIT OR Apache-2.0"
-homepage = "https://github.com/sachncs/tensor-network-schnorrs-sieving"
-repository = "https://github.com/sachncs/tensor-network-schnorrs-sieving"
+homepage = "https://github.com/sachncs/tensift"
+repository = "https://github.com/sachncs/tensift"
 documentation = "https://docs.rs/tensift"
-keywords = ["cryptography", "factorization", "lattice", "tensor-network"]
+keywords = ["tensift", "factorization", "semiprime", "lattice", "schnorr"]
 categories = ["cryptography", "algorithms", "mathematics", "science"]
 
 [workspace.dependencies]
@@ -39,6 +39,10 @@ opt-level = 3
 lto = "thin"
 codegen-units = 1
 # panic=abort yields smaller binaries but disables unwinding/backtraces.
+# This profile applies to every workspace crate, including libraries, so any
+# panic inside `tensift_*` library code aborts the host process. Downstream
+# callers who want to recover from a transient panic must wrap calls in
+# `std::panic::catch_unwind`. See docs/08-implementation-notes.md for details.
 panic = "abort"
 # strip=symbols removes debug symbols from release builds to reduce size.
 strip = "symbols"

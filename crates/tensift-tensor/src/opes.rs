@@ -846,11 +846,12 @@ impl MatrixProductOperator {
     /// # Errors
     ///
     /// Returns an error if the MPOs have incompatible site counts.
-    pub fn contract_mpo_mpo(
+    pub fn contract_mpo_mpo<R: Rng>(
         &self,
         other: &MatrixProductOperator,
         max_bond_dim: usize,
         svd_threshold: f64,
+        rng: &mut R,
     ) -> crate::Result<MatrixProductOperator> {
         if self.n_sites != other.n_sites {
             return Err("MPOs must have same number of sites".into());
@@ -861,7 +862,7 @@ impl MatrixProductOperator {
         let mut result_tensors = Vec::with_capacity(n_sites);
 
         for site in 0..n_sites {
-            let result = self.contract_site_mpo_mpo(site, other, max_bond_dim, svd_threshold);
+            let result = self.contract_site_mpo_mpo(site, other, max_bond_dim, svd_threshold, rng);
             result_tensors.push(result);
         }
 
@@ -881,12 +882,13 @@ impl MatrixProductOperator {
     }
 
     /// Contract a single site from two MPOs.
-    fn contract_site_mpo_mpo(
+    fn contract_site_mpo_mpo<R: Rng>(
         &self,
         site: usize,
         other: &MatrixProductOperator,
         max_bond_dim: usize,
         svd_threshold: f64,
+        rng: &mut R,
     ) -> Array4<f64> {
         let a = &self.tensors[site];
         let b = &other.tensors[site];
@@ -939,7 +941,7 @@ impl MatrixProductOperator {
 
         // Step 2: Reshape and perform SVD truncation
         // Result shape: [result_left, result_right, phys_dim, phys_dim]
-        Self::truncate_tensor(&intermediate, max_bond_dim, svd_threshold, phys_dim)
+        Self::truncate_tensor(&intermediate, max_bond_dim, svd_threshold, phys_dim, rng)
     }
 
     /// Direct contraction without truncation (for small bonds).
@@ -994,11 +996,17 @@ impl MatrixProductOperator {
     /// Compared to the basic 3-iteration power method, this uses up to 20
     /// iterations with convergence checking and explicit Gram-Schmidt
     /// orthogonalization for numerical stability.
-    fn truncate_tensor(
+    ///
+    /// Random initialization vectors are drawn from the supplied `rng` so the
+    /// truncation is deterministic given a fixed seed. This avoids pulling
+    /// from OS entropy via `rand::random()` and preserves the pipeline's
+    /// reproducibility guarantees.
+    fn truncate_tensor<R: Rng>(
         tensor: &Array4<f64>,
         max_bond_dim: usize,
         svd_threshold: f64,
         phys_dim: usize,
+        rng: &mut R,
     ) -> Array4<f64> {
         let bond_left = tensor.shape()[0];
         let bond_right = tensor.shape()[1];
@@ -1045,7 +1053,7 @@ impl MatrixProductOperator {
 
         for _ in 0..target_dim {
             let mut v: Array1<f64> =
-                Array1::from_vec((0..vec_dim).map(|_| rand::random::<f64>()).collect());
+                Array1::from_vec((0..vec_dim).map(|_| rng.random::<f64>()).collect());
             let norm = v.iter().map(|x| x * x).sum::<f64>().sqrt();
             if norm > 0.0 {
                 v /= norm;
@@ -1244,13 +1252,17 @@ impl MatrixProductOperator {
 /// This amplifies the ground state component:
 /// H^k |ψ⟩ ≈ λ₀^k |ψ₀⟩⟨ψ₀|ψ⟩
 ///
+/// The supplied `rng` is forwarded to MPO-MPO contractions so the power-iteration
+/// initial vectors stay deterministic given a fixed seed.
+///
 /// # Errors
 ///
 /// Returns an error if the Hamiltonian cannot be converted to an MPO or if
 /// truncation parameters lead to invalid bond dimensions.
-pub fn spectral_amplification(
+pub fn spectral_amplification<R: Rng>(
     hamiltonian: &CvpHamiltonian,
     config: &AmplificationConfig,
+    rng: &mut R,
 ) -> crate::Result<AmplificationResult> {
     trace!(
         "Starting spectral amplification: power={}, max_bond_dim={}",
@@ -1270,8 +1282,12 @@ pub fn spectral_amplification(
 
         while power_remaining > 0 {
             if power_remaining % 2 == 1 {
-                result =
-                    result.contract_mpo_mpo(&current, config.max_bond_dim, config.svd_threshold)?;
+                result = result.contract_mpo_mpo(
+                    &current,
+                    config.max_bond_dim,
+                    config.svd_threshold,
+                    rng,
+                )?;
                 num_contractions += 1;
             }
 
@@ -1280,6 +1296,7 @@ pub fn spectral_amplification(
                     &current,
                     config.max_bond_dim,
                     config.svd_threshold,
+                    rng,
                 )?;
                 num_contractions += 1;
             }
@@ -1289,7 +1306,12 @@ pub fn spectral_amplification(
     } else {
         // Direct multiplication
         for _ in 1..config.power {
-            result = result.contract_mpo_mpo(&h_mpo, config.max_bond_dim, config.svd_threshold)?;
+            result = result.contract_mpo_mpo(
+                &h_mpo,
+                config.max_bond_dim,
+                config.svd_threshold,
+                rng,
+            )?;
             num_contractions += 1;
         }
     }
@@ -1337,7 +1359,7 @@ pub fn sample_amplified_mpo<R: Rng>(
         power: amplification_power,
         ..Default::default()
     };
-    let amp_result = match spectral_amplification(hamiltonian, &amp_config) {
+    let amp_result = match spectral_amplification(hamiltonian, &amp_config, rng) {
         Ok(r) => r,
         Err(e) => {
             debug!("Spectral amplification failed: {}", e);
@@ -1572,7 +1594,7 @@ mod tests {
         let mpo2 = MatrixProductOperator::random(3, 2, 2, &mut rng);
 
         let result = mpo1
-            .contract_mpo_mpo(&mpo2, 8, 1e-10)
+            .contract_mpo_mpo(&mpo2, 8, 1e-10, &mut rng)
             .expect("contraction should succeed");
 
         assert_eq!(result.n_sites, 3);

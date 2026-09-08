@@ -94,7 +94,7 @@ pub fn sample_low_energy<R: Rng>(
     // 2. Greedy local search with random restarts
     for restart in 0..config.greedy_restarts {
         let start: Vec<bool> = (0..n_vars).map(|_| rng.random::<f64>() < 0.5).collect();
-        let (bits, energy) = greedy_local_search(hamiltonian, &start);
+        let (bits, energy) = greedy_local_search(hamiltonian, &start, rng);
         if seen.insert(bits.clone()) {
             samples.push((bits, energy));
         }
@@ -153,7 +153,11 @@ fn sample_exact(hamiltonian: &CvpHamiltonian) -> Vec<(Vec<bool>, f64)> {
 }
 
 /// Greedy local search: accept only energy-decreasing single-spin flips.
-fn greedy_local_search(hamiltonian: &CvpHamiltonian, start: &[bool]) -> (Vec<bool>, f64) {
+fn greedy_local_search<R: Rng>(
+    hamiltonian: &CvpHamiltonian,
+    start: &[bool],
+    rng: &mut R,
+) -> (Vec<bool>, f64) {
     let n = hamiltonian.n_vars();
     let mut bits = start.to_vec();
     let mut energy = hamiltonian.energy(&bits);
@@ -163,7 +167,7 @@ fn greedy_local_search(hamiltonian: &CvpHamiltonian, start: &[bool]) -> (Vec<boo
         improved = false;
         // Randomize sweep order to avoid bias
         let mut order: Vec<usize> = (0..n).collect();
-        fast_shuffle(&mut order);
+        fast_shuffle(&mut order, rng);
 
         for &j in &order {
             let delta = compute_flip_delta(hamiltonian, &bits, j);
@@ -248,10 +252,14 @@ fn compute_flip_delta(hamiltonian: &CvpHamiltonian, bits: &[bool], j: usize) -> 
 }
 
 /// In-place Fisher-Yates shuffle for small vectors (no rand::seq dependency).
-fn fast_shuffle(slice: &mut [usize]) {
+///
+/// Pulls randomness from the supplied `rng` so the shuffle is deterministic
+/// given a fixed seed. Avoids `rand::random()` (which sources from OS entropy)
+/// so the whole pipeline stays reproducible.
+fn fast_shuffle<R: Rng>(slice: &mut [usize], rng: &mut R) {
     let n = slice.len();
     for i in (1..n).rev() {
-        let j = (i as f64 * rand::random::<f64>()) as usize % (i + 1);
+        let j = (i as f64 * rng.random::<f64>()) as usize % (i + 1);
         slice.swap(i, j);
     }
 }

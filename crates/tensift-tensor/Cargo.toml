@@ -10,7 +10,7 @@ homepage.workspace = true
 documentation.workspace = true
 keywords.workspace = true
 categories.workspace = true
-description = "Tensor network operations and Hamiltonian optimization for TNSS"
+description = "Tensor network operations and Hamiltonian optimization for tensift"
 
 [dependencies]
 tensift-core = { path = "../tensift-core" }

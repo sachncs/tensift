@@ -1,4 +1,4 @@
-//! TNSS Algebra - Number theory and GF(2) linear algebra.
+//! tensift Algebra - Number theory and GF(2) linear algebra.
 
 #![warn(missing_docs)]
 #![warn(rust_2018_idioms)]

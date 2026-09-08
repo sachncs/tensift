@@ -1,11 +1,11 @@
-//! TNSS Core - Types, errors, and utilities for Tensor-Network Schnorr's Sieving.
+//! tensift Core - Types, errors, and utilities for Tensor-Network Schnorr's Sieving.
 
 #![warn(missing_docs)]
 #![warn(rust_2018_idioms)]
 
 use thiserror::Error;
 
-/// Errors that can occur during the TNSS factorization pipeline.
+/// Errors that can occur during the tensift factorization pipeline.
 // Name kept as `Error` for ergonomic use with `tensift_core::Result`; the module
 // path (`tensift_core::Error`) provides sufficient disambiguation.
 #[derive(Debug, Error, Clone)]
@@ -44,7 +44,7 @@ impl From<&str> for Error {
     }
 }
 
-/// Result type alias for TNSS operations.
+/// Result type alias for tensift operations.
 pub type Result<T> = core::result::Result<T, Error>;
 
 /// Mathematical constants used throughout.

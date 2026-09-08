@@ -1,6 +1,6 @@
-# Getting Started with TNSS
+# Getting Started with tensift
 
-This guide will help you get started with using and developing TNSS.
+This guide will help you get started with using and developing tensift.
 
 ## Table of Contents
 
@@ -25,8 +25,8 @@ This guide will help you get started with using and developing TNSS.
 
 ```bash
 # Clone the repository
-git clone https://github.com/sachncs/tensor-network-schnorrs-sieving.git
-cd tensor-network-schnorrs-sieving
+git clone https://github.com/sachncs/tensift.git
+cd tensift
 
 # Run the setup script (installs toolchain and optional tools)
 ./setup.sh
@@ -57,7 +57,7 @@ Factor a semiprime from the command line:
 cargo run -p tensift-cli -- 91
 
 # Output:
-# [INFO] TNSS Optimized Factorization Pipeline
+# [INFO] tensift Optimized Factorization Pipeline
 # [INFO] Input: 91 (7 bits)
 # [INFO] Starting factorization...
 #
@@ -239,7 +239,7 @@ cargo run -p tensift-cli -- 91
 
 **Output:**
 ```
-[INFO] TNSS Optimized Factorization Pipeline
+[INFO] tensift Optimized Factorization Pipeline
 [INFO] Input: 91 (7 bits)
 [INFO] Configuration:
 [INFO]   Lattice dimension: 7
@@ -350,14 +350,14 @@ For better performance:
 ### Getting Help
 
 - **Documentation**: See the [docs/](../docs/) directory
-- **Issues**: Open an issue on [GitHub](https://github.com/sachncs/tensor-network-schnorrs-sieving/issues)
-- **Discussions**: Join the [GitHub Discussions](https://github.com/sachncs/tensor-network-schnorrs-sieving/discussions)
+- **Issues**: Open an issue on [GitHub](https://github.com/sachncs/tensift/issues)
+- **Discussions**: Join the [GitHub Discussions](https://github.com/sachncs/tensift/discussions)
 
 ---
 
 ## Next Steps
 
-- Read the [Algorithm Overview](./00-overview.md) to understand how TNSS works
+- Read the [Algorithm Overview](./00-overview.md) to understand how tensift works
 - Explore the [Stage-by-Stage Documentation](./01-stage-1-lattice-construction.md)
 - Check out the [Implementation Notes](./08-implementation-notes.md) for known limitations
 - Contribute to the project by reading the [Contributing Guide](../CONTRIBUTING.md)

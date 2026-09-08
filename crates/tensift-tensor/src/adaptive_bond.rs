@@ -82,7 +82,7 @@ impl PidParams {
         }
     }
 
-    /// Parameters tuned for the TNSS spin-glass Hamiltonian.
+    /// Parameters tuned for the tensift spin-glass Hamiltonian.
     pub fn for_tnss(max_bond: usize) -> Self {
         Self {
             kp: 0.6,

@@ -1,6 +1,6 @@
-# Contributing to TNSS
+# Contributing to tensift
 
-Thank you for your interest in contributing to Tensor-Network Schnorr's Sieving! This document provides guidelines and instructions for contributing.
+Thank you for your interest in contributing to tensift (Tensor-Network Schnorr's Sieving)! This document provides guidelines and instructions for contributing.
 
 ## Table of Contents
 
@@ -127,7 +127,6 @@ The scope should be the crate name:
 - `core`
 - `lattice`
 - `tensor`
-- `sampler`
 - `algebra`
 - `cli`
 
@@ -265,8 +264,8 @@ pub fn my_function(input: i32) -> i32 {
 
 If you have questions about contributing, feel free to:
 
-1. Open a [discussion](https://github.com/tensift/tensift/discussions)
+1. Open a [discussion](https://github.com/sachncs/tensift/discussions)
 2. Ask in an existing issue
 3. Reach out to maintainers
 
-Thank you for contributing to TNSS!
+Thank you for contributing to tensift!

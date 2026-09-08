@@ -10,7 +10,7 @@ homepage.workspace = true
 documentation.workspace = true
 keywords.workspace = true
 categories.workspace = true
-description = "Number theory and GF(2) linear algebra for TNSS"
+description = "Number theory and GF(2) linear algebra for tensift"
 
 [dependencies]
 tensift-core = { path = "../tensift-core" }

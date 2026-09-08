@@ -1,6 +1,6 @@
-//! TNSS CLI - Command-line interface for factorization.
+//! tensift CLI - Command-line interface for factorization.
 //!
-//! This crate re-exports the core TNSS libraries consumed by the CLI binary
+//! This crate re-exports the core tensift libraries consumed by the CLI binary
 //! and examples. Each group corresponds to a workspace crate.
 
 #![warn(missing_docs)]

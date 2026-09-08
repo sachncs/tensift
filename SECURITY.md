@@ -9,7 +9,7 @@
 
 ## Reporting a Vulnerability
 
-If you discover a security vulnerability within TNSS, please send an email to **sachn.cs@gmail.com**. All security vulnerabilities will be promptly addressed.
+If you discover a security vulnerability within tensift, please send an email to **sachncs@gmail.com**. All security vulnerabilities will be promptly addressed.
 
 **Please do not report security vulnerabilities through public GitHub issues.**
 
@@ -34,7 +34,7 @@ When reporting a vulnerability, please include:
 
 ## Security Best Practices
 
-When using TNSS in your project:
+When using tensift in your project:
 
 - Keep your Rust toolchain updated to the latest stable version
 - Run `cargo audit` regularly to check for known vulnerabilities in dependencies
@@ -45,7 +45,7 @@ When using TNSS in your project:
 
 This security policy applies to:
 
-- The TNSS Rust crates
+- The tensift Rust crates
 - The command-line interface (`tensift-cli`)
 - Documentation and examples in this repository
 

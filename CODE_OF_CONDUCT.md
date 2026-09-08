@@ -60,8 +60,8 @@ representative at an online or offline event.
 
 Instances of abusive, harassing, or otherwise unacceptable behavior may be
 reported to the community leaders responsible for enforcement at
-**https://github.com/sachncs/tensor-network-schnorrs-sieving/issues** or via email at
-**sachn.cs@gmail.com**.
+**https://github.com/sachncs/tensift/issues** or via email at
+**sachncs@gmail.com**.
 
 All complaints will be reviewed and investigated promptly and fairly.
 

@@ -1,6 +1,6 @@
 ---
 name: Bug Report
-about: Report a bug to help us improve TNSS
+about: Report a bug to help us improve tensift
 title: '[Bug] '
 labels: 'bug'
 assignees: ''
@@ -37,8 +37,8 @@ If applicable, paste the error output:
 ## Environment
 
 - OS: [e.g., macOS 14.0, Ubuntu 22.04]
-- Rust version: [e.g., 1.85.0]
-- TNSS version: [e.g., 0.1.1]
+- Rust version: [e.g., 1.88.0]
+- tensift version: [e.g., 0.1.1]
 - Installation method: [e.g., cargo install, from source]
 
 ## Input

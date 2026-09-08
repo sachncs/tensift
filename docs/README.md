@@ -1,4 +1,4 @@
-# TNSS Documentation
+# tensift Documentation
 
 ## Tensor-Network Schnorr's Sieving for Integer Factorization
 

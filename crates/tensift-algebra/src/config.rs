@@ -1,4 +1,4 @@
-//! Configuration for the TNSS factorization pipeline.
+//! Configuration for the tensift factorization pipeline.
 
 use tensift_core::index_slicing::SliceConfig;
 use tensift_core::{Error, Result};
@@ -31,7 +31,7 @@ pub enum CvpSolver {
     Hybrid,
 }
 
-/// Hyperparameters for the TNSS algorithm.
+/// Hyperparameters for the tensift algorithm.
 #[derive(Clone, Debug)]
 pub struct Config {
     // -- Lattice parameters --

@@ -1,4 +1,4 @@
-# TNSS Algorithm Overview
+# tensift Algorithm Overview
 
 ## Tensor-Network Schnorr's Sieving for Integer Factorization
 
@@ -6,19 +6,19 @@
 
 ## Table of Contents
 
-1. [What is TNSS?](#what-is-tensift)
+1. [What is tensift?](#what-is-tensift)
 2. [The Problem It Solves](#the-problem-it-solves)
 3. [Algorithm Architecture](#algorithm-architecture)
 4. [The 7 Stages at a Glance](#the-7-stages-at-a-glance)
 5. [Key Techniques](#key-techniques)
-6. [When to Use TNSS](#when-to-use-tensift)
+6. [When to Use tensift](#when-to-use-tensift)
 7. [Documentation Structure](#documentation-structure)
 
 ---
 
-## What is TNSS?
+## What is tensift?
 
-TNSS (Tensor-Network Schnorr's Sieving) is a quantum-inspired classical algorithm for integer factorization that combines:
+tensift (Tensor-Network Schnorr's Sieving, abbreviated **TNSS**) is a quantum-inspired classical algorithm for integer factorization that combines:
 
 - **Schnorr's lattice-based approach** for encoding factorization as a Closest Vector Problem (CVP)
 - **Tree Tensor Networks (TTN)** as a variational ansatz for exploring the CVP energy landscape
@@ -66,7 +66,7 @@ Both $u$ and $w$ factor completely over a predetermined set of small primes (the
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│                      TNSS PIPELINE                               │
+│                      tensift PIPELINE                           │
 ├─────────────────────────────────────────────────────────────────┤
 │                                                                  │
 │  Stage 1: Lattice Construction                                   │
@@ -166,7 +166,7 @@ Smooth relation exponent vectors are assembled into a matrix over GF(2). The ker
 
 ---
 
-## When to Use TNSS
+## When to Use tensift
 
 ### Appropriate Use Cases
 
@@ -185,10 +185,10 @@ Smooth relation exponent vectors are assembled into a matrix over GF(2). The ker
 
 | Algorithm | Best For | Complexity | Notes |
 |-----------|----------|------------|-------|
-| Trial Division | Very small $N$ | $O(\sqrt{N})$ | TNSS is overkill for $N < 10^{10}$ |
+| Trial Division | Very small $N$ | $O(\sqrt{N})$ | tensift is overkill for $N < 10^{10}$ |
 | Quadratic Sieve | Medium $N$ | $L_N[1/2, 1]$ | Mature, widely used |
 | Number Field Sieve | Large $N$ | $L_N[1/3, c]$ | State of the art for $> 100$ bits |
-| Shor's Algorithm | Quantum | $O((\log N)^3)$ | TNSS is classical |
+| Shor's Algorithm | Quantum | $O((\log N)^3)$ | tensift is classical |
 
 ---
 
@@ -210,7 +210,7 @@ Smooth relation exponent vectors are assembled into a matrix over GF(2). The ker
 
 ## Quick Start
 
-To factor a number using TNSS:
+To factor a number using tensift:
 
 ```rust
 use tensift_algebra::factor::{factorize, Config};

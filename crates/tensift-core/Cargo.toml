@@ -10,7 +10,7 @@ homepage.workspace = true
 documentation.workspace = true
 keywords.workspace = true
 categories.workspace = true
-description = "Core types, errors, and utilities for TNSS"
+description = "Core types, errors, and utilities for tensift"
 
 [dependencies]
 thiserror = { workspace = true }

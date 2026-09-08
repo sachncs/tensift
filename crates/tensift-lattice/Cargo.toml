@@ -10,7 +10,7 @@ homepage.workspace = true
 documentation.workspace = true
 keywords.workspace = true
 categories.workspace = true
-description = "Lattice reduction and CVP algorithms for TNSS"
+description = "Lattice reduction and CVP algorithms for tensift"
 
 [dependencies]
 tensift-core = { path = "../tensift-core" }

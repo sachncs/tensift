@@ -1,6 +1,6 @@
 ---
 name: Feature Request
-about: Suggest an idea for TNSS
+about: Suggest an idea for tensift
 title: '[Feature] '
 labels: 'enhancement'
 assignees: ''
@@ -25,7 +25,7 @@ Describe the use case for this feature. How would it be used? Who would benefit?
 
 ## Algorithmic Considerations
 
-If applicable, describe how this feature relates to the TNSS algorithm:
+If applicable, describe how this feature relates to the tensift algorithm:
 - Which stage(s) would be affected?
 - Are there mathematical or algorithmic implications?
 - Performance considerations?

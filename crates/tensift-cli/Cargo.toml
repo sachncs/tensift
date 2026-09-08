@@ -10,7 +10,7 @@ homepage.workspace = true
 documentation.workspace = true
 keywords.workspace = true
 categories.workspace = true
-description = "Command-line interface for TNSS factorization"
+description = "Command-line interface for tensift factorization"
 
 [[bin]]
 name = "tensift"

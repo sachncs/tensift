@@ -5,8 +5,8 @@
     <a href="#installation"><img src="https://img.shields.io/badge/rust-1.88%2B-orange" alt="Rust"></a>
     <a href="LICENSE-MIT"><img src="https://img.shields.io/badge/license-MIT%2FApache--2.0-green" alt="License"></a>
     <a href="https://crates.io/crates/tensift-cli"><img src="https://img.shields.io/crates/v/tensift-cli" alt="crates.io"></a>
-    <a href="https://github.com/sachncs/tensor-network-schnorrs-sieving/actions"><img src="https://img.shields.io/github/actions/workflow/status/sachncs/tensor-network-schnorrs-sieving/ci.yml?branch=master" alt="CI"></a>
-    <a href="https://github.com/sachncs/tensor-network-schnorrs-sieving/stargazers"><img src="https://img.shields.io/github/stars/sachncs/tensor-network-schnorrs-sieving" alt="Stars"></a>
+    <a href="https://github.com/sachncs/tensift/actions"><img src="https://img.shields.io/github/actions/workflow/status/sachncs/tensift/ci.yml?branch=master" alt="CI"></a>
+    <a href="https://github.com/sachncs/tensift/stargazers"><img src="https://img.shields.io/github/stars/sachncs/tensift" alt="Stars"></a>
     <a href="https://github.com/rust-lang/rustfmt"><img src="https://img.shields.io/badge/code%20style-rustfmt-000000.svg" alt="rustfmt"></a>
     <a href="https://github.com/rust-lang/rust-clippy"><img src="https://img.shields.io/badge/lint%20clean-clippy-blue.svg" alt="clippy"></a>
   </p>
@@ -102,8 +102,8 @@ No `git clone`, no build step. You get the `tensift` command on your
 
 ```bash
 # 1. Download the code
-git clone https://github.com/sachncs/tensor-network-schnorrs-sieving.git
-cd tensor-network-schnorrs-sieving
+git clone https://github.com/sachncs/tensift.git
+cd tensift
 
 # 2. Set up the toolchain (installs rustfmt + clippy components)
 ./setup.sh

@@ -1,16 +1,16 @@
-//! TNSS - Tensor-Network Schnorr's Sieving for Integer Factorization
+//! tensift - Tensor-Network Schnorr's Sieving for Integer Factorization
 //!
-//! Command-line interface for factorizing semiprimes using the TNSS algorithm.
+//! Command-line interface for factorizing semiprimes using the tensift algorithm.
 
 use clap::Parser;
 use log::info;
 use rug::Integer;
 use tensift_algebra::factor::{Config, FactorResult, factorize};
 
-/// TNSS - Optimized Tensor-Network Schnorr Sieving
+/// tensift - Optimized Tensor-Network Schnorr Sieving
 #[derive(Parser, Debug)]
 #[command(name = "tensift")]
-#[command(about = "Factorize semiprimes using the TNSS algorithm")]
+#[command(about = "Factorize semiprimes using the tensift algorithm")]
 struct Args {
     /// The semiprime number to factor
     semiprime: String,
@@ -63,8 +63,8 @@ fn run() -> Result<(), String> {
     };
     let bits = n.significant_bits() as usize;
 
-    info!("TNSS Optimized Factorization Pipeline");
-    info!("====================================");
+    info!("tensift Optimized Factorization Pipeline");
+    info!("=========================================");
     info!("Input: {} ({} bits)", n, bits);
 
     let mut cfg = Config::default_for_bits(bits);

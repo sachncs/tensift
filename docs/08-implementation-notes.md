@@ -25,7 +25,7 @@
 
 ## Overview
 
-This document catalogs known simplifications and limitations in the TNSS implementation. These are not bugs per se, but conscious design choices or areas where the implementation could be extended. Understanding these limitations is important for interpreting results and planning improvements.
+This document catalogs known simplifications and limitations in the tensift implementation. These are not bugs per se, but conscious design choices or areas where the implementation could be extended. Understanding these limitations is important for interpreting results and planning improvements.
 
 ---
 

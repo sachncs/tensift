@@ -1,4 +1,4 @@
-//! Main TNSS factorization pipeline with optimizations.
+//! Main tensift factorization pipeline with optimizations.
 //!
 //! This module implements the complete factorization algorithm combining:
 //! - Schnorr lattice construction
@@ -101,7 +101,7 @@ pub struct FactorResult {
     pub stats: PipelineStats,
 }
 
-/// Attempt to factor `N = p * q` using the optimized TNSS pipeline.
+/// Attempt to factor `N = p * q` using the optimized tensift pipeline.
 ///
 /// # Algorithm with Optimizations
 ///

@@ -1,4 +1,4 @@
-//! TNSS Tensor - Tensor network operations and Hamiltonian optimization.
+//! tensift Tensor - Tensor network operations and Hamiltonian optimization.
 
 #![warn(missing_docs)]
 #![warn(rust_2018_idioms)]

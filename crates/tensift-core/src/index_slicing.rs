@@ -57,7 +57,7 @@ impl SliceConfig {
         }
     }
 
-    /// Create configuration tuned for TNSS sampling.
+    /// Create configuration tuned for tensift sampling.
     pub fn for_tnss(n_qubits: usize) -> Self {
         let num_configs = 1_usize << n_qubits.min(20);
         let num_slices = num_threads().max(1);

@@ -1,4 +1,4 @@
-//! TNSS Lattice - Lattice reduction and CVP algorithms.
+//! tensift Lattice - Lattice reduction and CVP algorithms.
 
 #![warn(missing_docs)]
 #![warn(rust_2018_idioms)]

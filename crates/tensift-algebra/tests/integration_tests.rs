@@ -1,4 +1,4 @@
-//! Integration tests for TNSS factorization pipeline.
+//! Integration tests for tensift factorization pipeline.
 
 use rand::SeedableRng;
 use rand_chacha::ChaCha8Rng;

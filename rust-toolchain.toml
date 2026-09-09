@@ -1,0 +1,7 @@
+[toolchain]
+# Pin to the workspace MSRV (matches Cargo.toml rust-version and the README's
+# "Rust 1.88 or newer" requirement). CI overrides this with @stable for the
+# non-MSRV jobs and uses 1.88.0 for the dedicated msrv job.
+channel = "1.88"
+components = ["rustfmt", "clippy", "rust-src"]
+profile = "minimal"

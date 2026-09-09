@@ -1,0 +1,159 @@
+title: tensift
+tagline: Integer factorization via tensor-network Schnorr's sieving
+description: >-
+  tensift is a research-grade Rust implementation of a deterministic
+  7-stage integer-factorization pipeline. Lattice construction, basis
+  reduction, CVP approximation, tensor-network sampling, smoothness
+  verification, and factor extraction — wired together as a single
+  reproducible CLI tool and library.
+author: Sachin
+email: sachncs@gmail.com
+url: https://sachncs.github.io
+baseurl: /tensift
+repository: sachncs/tensift
+logo: /assets/logo.svg
+favicon: /assets/favicon.svg
+show_downloads: false
+permalink: /:title/
+markdown: kramdown
+highlighter: rouge
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+  hard_wrap: false
+  toc_levels: 2..3
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-sitemap
+
+# Brand and presentation
+brand:
+  name: tensift
+  product_line: "open-source cryptography · systems software"
+  paper: "M. Tesoro, I. Siloi, D. Jaschke, G. Magnifico, S. Montangero, Phys. Rev. A 113, 032418 (2026)"
+  paper_doi: "https://doi.org/10.1103/PhysRevA.113.032418"
+  palette:
+    accent: "#b85c1c"
+  stats:
+    crates: 5
+    unit_tests: 121
+    integration_tests: 14
+    benches: 4
+    lines_of_rust: 12600
+  msrv: "1.88"
+  license: "MIT OR Apache-2.0"
+
+# Files and directories that Jekyll should not copy into the built site.
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - CONTRIBUTING.md
+  - SECURITY.md
+  - SUPPORT.md
+  - CODE_OF_CONDUCT.md
+  - CHANGELOG.md
+  - LICENSE-MIT
+  - LICENSE-APACHE
+  - clippy.toml
+  - deny.toml
+  - justfile
+  - setup.sh
+  - rust-toolchain.toml
+  - Cargo.toml
+  - Cargo.lock
+  - .editorconfig
+  - .gitignore
+  - .gitattributes
+  - target
+  - .github
+  - .git
+  - crates
+  - "*.sh"
+  - "*.toml"
+  - "*.lock"
+  - "*.yml"
+  - "*.yaml"
+  - vendor
+
+include:
+  - _pages
+
+nav:
+  - title: Home
+    url: /
+  - title: "Getting started"
+    url: /getting-started/
+  - title: Tutorials
+    children:
+      - title: "Quick tour"
+        url: /tutorials/quick-tour/
+      - title: "Factor from the CLI"
+        url: /tutorials/factor-from-cli/
+      - title: "Use as a library"
+        url: /tutorials/use-as-library/
+      - title: "Batch factorization"
+        url: /tutorials/batch-factorization/
+      - title: "Tuning the pipeline"
+        url: /tutorials/tuning-the-pipeline/
+      - title: "Reproducible runs"
+        url: /tutorials/reproducible-runs/
+  - title: Concepts
+    children:
+      - title: "Algorithm overview"
+        url: /concepts/algorithm-overview/
+      - title: "Why lattice + tensor network?"
+        url: /concepts/why-lattice-tensor-network/
+      - title: "Limitations"
+        url: /concepts/limitations/
+      - title: "Glossary"
+        url: /concepts/glossary/
+  - title: "Stage docs"
+    children:
+      - title: "Stage 1 — Lattice construction"
+        url: /docs/stage-1-lattice-construction/
+      - title: "Stage 2 — Basis reduction"
+        url: /docs/stage-2-basis-reduction/
+      - title: "Stage 3 — CVP baseline"
+        url: /docs/stage-3-cvp-baseline/
+      - title: "Stage 4 — Tensor network ansatz"
+        url: /docs/stage-4-tensor-network/
+      - title: "Stage 5 — Optimization & sampling"
+        url: /docs/stage-5-optimization-sampling/
+      - title: "Stage 6 — Smoothness verification"
+        url: /docs/stage-6-smoothness-verification/
+      - title: "Stage 7 — Factor extraction"
+        url: /docs/stage-7-factor-extraction/
+      - title: "Implementation notes"
+        url: /docs/implementation-notes/
+  - title: "API reference"
+    children:
+      - title: "Crate map"
+        url: /api/crate-map/
+      - title: "tensift-algebra"
+        url: /api/tensift-algebra/
+      - title: "tensift-lattice"
+        url: /api/tensift-lattice/
+      - title: "tensift-tensor"
+        url: /api/tensift-tensor/
+      - title: "tensift-core"
+        url: /api/tensift-core/
+      - title: "tensift-cli"
+        url: /api/tensift-cli/
+  - title: Project
+    children:
+      - title: "Changelog"
+        url: /changelog/
+      - title: "Contributing"
+        url: /contributing/
+      - title: "Security policy"
+        url: /security/
+      - title: "Support"
+        url: /support/
+      - title: "Baseline"
+        url: /docs/baseline/
+
+github_edit_base: https://github.com/sachncs/tensift/edit/master/
+github_pages_source: https://github.com/sachncs/tensift
+latest_release: 0.1.1

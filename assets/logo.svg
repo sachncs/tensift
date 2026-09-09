@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 480" width="480" height="480" role="img" aria-label="tensift">
+  <title>tensift</title>
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#11100E" />
+      <stop offset="100%" stop-color="#1B1916" />
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#D67829" />
+      <stop offset="100%" stop-color="#A14A14" />
+    </linearGradient>
+  </defs>
+
+  <!-- Plate -->
+  <rect width="480" height="480" rx="80" fill="url(#bg)" />
+
+  <!-- Subtle coordinate grid -->
+  <g stroke="#FFFFFF" stroke-width="1" opacity="0.045" fill="none">
+    <line x1="0"   y1="120" x2="480" y2="120" />
+    <line x1="0"   y1="240" x2="480" y2="240" />
+    <line x1="0"   y1="360" x2="480" y2="360" />
+    <line x1="120" y1="0"   x2="120" y2="480" />
+    <line x1="240" y1="0"   x2="240" y2="480" />
+    <line x1="360" y1="0"   x2="360" y2="480" />
+  </g>
+
+  <!-- Mark: a stylised lattice — a closed boundary surrounding two vectors and a target. -->
+  <g transform="translate(240 232)" fill="none" stroke="url(#accent)" stroke-linecap="round" stroke-linejoin="round" stroke-width="6">
+    <!-- Outer hexagonal "lattice boundary" -->
+    <polygon points="-110,0  -55,-95   55,-95   110,0  55,95  -55,95" />
+    <!-- Diagonal of the lattice (the long vector) -->
+    <line x1="-90" y1="-78" x2="90" y2="78" opacity="0.6" />
+    <!-- The target point -->
+    <circle cx="0" cy="0" r="4" fill="url(#accent)" stroke="none" />
+    <!-- Two short lattice vectors meeting at the target -->
+    <line x1="0" y1="0" x2="-66" y2="-57" />
+    <line x1="0" y1="0" x2="66"  y2="-57" />
+  </g>
+
+  <!-- Wordmark -->
+  <g font-family="ui-serif, Georgia, 'Times New Roman', serif" fill="#F0EAE0" text-anchor="middle">
+    <text x="240" y="408" font-size="68" font-weight="500" letter-spacing="-2.2">tensift</text>
+    <text x="240" y="438" font-size="13" font-weight="500" letter-spacing="2.4" fill="#D67829" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace">FACTOR · LATTICE · TENSOR</text>
+  </g>
+</svg>

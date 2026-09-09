@@ -1,0 +1,22 @@
+<aside class="site-sidebar" aria-label="Documentation navigation">
+  <nav class="sidebar-nav">
+    <ul class="sidebar-list">
+      {% for entry in site.nav %}
+        <li class="sidebar-section">
+          {% if entry.url %}
+            <a class="sidebar-link sidebar-link-top {% if page.url == entry.url %}is-active{% endif %}" href="{{ entry.url | relative_url }}">{{ entry.title }}</a>
+          {% else %}
+            <span class="sidebar-section-title">{{ entry.title }}</span>
+            <ul class="sidebar-sublist">
+              {% for child in entry.children %}
+                <li>
+                  <a class="sidebar-link {% if page.url == child.url %}is-active{% endif %}" href="{{ child.url | relative_url }}">{{ child.title }}</a>
+                </li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  </nav>
+</aside>

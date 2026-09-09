@@ -1,0 +1,53 @@
+<footer class="site-footer" role="contentinfo">
+  <div class="site-footer-inner">
+    <div class="footer-brand">
+      <a class="site-brand" href="{{ '/' | relative_url }}" style="color: var(--c-text);">
+        <img class="site-mark" src="{{ site.logo | relative_url }}" alt="" aria-hidden="true" />
+        <span>{{ site.title }}</span>
+      </a>
+      <p class="site-tagline">{{ site.tagline }}</p>
+      <p class="footer-meta">{{ site.brand.product_line }} · v{{ site.latest_release }} · MSRV {{ site.brand.msrv }} · {{ site.brand.license }}</p>
+    </div>
+
+    <div>
+      <h4>Product</h4>
+      <ul>
+        <li><a href="{{ '/getting-started/' | relative_url }}">Get started</a></li>
+        <li><a href="{{ '/tutorials/quick-tour/' | relative_url }}">Tutorials</a></li>
+        <li><a href="{{ '/concepts/algorithm-overview/' | relative_url }}">Algorithm</a></li>
+        <li><a href="{{ '/api/crate-map/' | relative_url }}">API reference</a></li>
+        <li><a href="https://docs.rs/tensift-cli">docs.rs ↗</a></li>
+        <li><a href="https://crates.io/crates/tensift-cli">crates.io ↗</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <h4>Project</h4>
+      <ul>
+        <li><a href="{{ '/changelog/' | relative_url }}">Changelog</a></li>
+        <li><a href="{{ '/contributing/' | relative_url }}">Contributing</a></li>
+        <li><a href="{{ '/docs/baseline/' | relative_url }}">Baseline</a></li>
+        <li><a href="{{ '/docs/implementation-notes/' | relative_url }}">Implementation notes</a></li>
+        <li><a href="{{ '/security/' | relative_url }}">Security policy</a></li>
+        <li><a href="{{ '/support/' | relative_url }}">Support</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <h4>Research</h4>
+      <ul>
+        <li><a href="{{ '/docs/stage-1-lattice-construction/' | relative_url }}">Stage 1 — Lattice</a></li>
+        <li><a href="{{ '/docs/stage-4-tensor-network/' | relative_url }}">Stage 4 — Tensor network</a></li>
+        <li><a href="{{ '/docs/stage-7-factor-extraction/' | relative_url }}">Stage 7 — Extraction</a></li>
+        <li><a href="{{ '/concepts/limitations/' | relative_url }}">Limitations</a></li>
+        <li><a href="{{ site.brand.paper_doi }}">Paper (Phys. Rev. A) ↗</a></li>
+        <li><a href="https://github.com/{{ site.repository }}">GitHub ↗</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="site-footer-bottom">
+    <span>© {{ site.time | date: '%Y' }} {{ site.author }} · {{ site.brand.license }}</span>
+    <span>tensift v{{ site.latest_release }} · {{ site.brand.msrv }} · zero <code>unsafe</code></span>
+  </div>
+</footer>

@@ -1,3 +1,11 @@
+---
+layout: docs
+title: Implementation notes
+section: Stage docs
+subtitle: Known simplifications, limitations, and design tradeoffs in the implementation.
+github_path: docs/implementation-notes.md
+---
+
 # Implementation Notes
 
 ## Known Simplifications, Limitations, and Design Tradeoffs

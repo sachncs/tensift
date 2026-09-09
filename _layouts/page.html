@@ -1,0 +1,17 @@
+---
+layout: default
+---
+
+<article class="page page-{{ page.layout | default: 'page' }}">
+  <header class="page-header">
+    <p class="page-eyebrow">{{ page.section | default: 'tensift' }}</p>
+    <h1 class="page-title">{{ page.title }}</h1>
+    {% if page.subtitle %}
+      <p class="page-subtitle">{{ page.subtitle }}</p>
+    {% endif %}
+  </header>
+
+  <div class="page-body">
+    {{ content }}
+  </div>
+</article>

@@ -1,90 +1,54 @@
+---
+layout: page
+title: Contributing
+section: Project
+---
+
 # Contributing to tensift
 
-Thank you for your interest in contributing to tensift (Tensor-Network Schnorr's Sieving)! This document provides guidelines and instructions for contributing.
+Thank you for your interest in contributing to tensift (Tensor-Network
+Schnorr's Sieving). This page summarizes the workflow; the canonical copy
+lives in [CONTRIBUTING.md](https://github.com/sachncs/tensift/blob/master/CONTRIBUTING.md).
 
-## Table of Contents
+> **Read [CONTRIBUTING.md](https://github.com/sachncs/tensift/blob/master/CONTRIBUTING.md) before opening a PR.**
+> Anything below is a high-level overview.
 
-- [Code of Conduct](#code-of-conduct)
-- [Getting Started](#getting-started)
-- [Development Setup](#development-setup)
-- [Branch Naming](#branch-naming)
-- [Commit Conventions](#commit-conventions)
-- [Pull Request Process](#pull-request-process)
-- [Coding Standards](#coding-standards)
-- [Testing](#testing)
-- [Documentation](#documentation)
+## Quick start
 
-## Code of Conduct
+1. Fork the repository.
+2. Clone your fork and run the setup script:
 
-This project adheres to the [Contributor Covenant Code of Conduct](CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code.
-
-## Getting Started
-
-1. **Fork the repository** on GitHub
-2. **Clone your fork** locally:
    ```bash
-   git clone https://github.com/YOUR_USERNAME/tensift.git
+   git clone https://github.com/<your-username>/tensift.git
    cd tensift
-   ```
-3. **Run the setup script**:
-   ```bash
    ./setup.sh
    ```
-4. **Create a branch** for your changes:
+
+3. Create a branch for your change:
+
    ```bash
    git checkout -b feat/my-new-feature
    ```
 
-## Development Setup
+4. Make your change, push, and open a PR.
 
-### Prerequisites
+## What to know before you write code
 
-- Rust 1.88+ (see `rust-toolchain.toml`)
-- `just` (optional, for task runner)
+- **One crate per stage.**  The workspace is structured so that a tinkerer
+  can swap out a single stage without touching the others. Keep the
+  boundaries intact.
+  See [Crate map](/api/crate-map/).
+- **The pipeline is deterministic.**  Every random call in the workspace
+  reads from a single `&mut R: Rng` threaded through the pipeline. Don't
+  reintroduce `rand::random()` or `OsRng`. See
+  [Tutorials → Reproducible runs](/tutorials/reproducible-runs/).
+- **The MSRV is 1.88.**  Anything that won't compile on 1.88 won't ship.
+- **`panic = "abort"` in release.**  Panics in library code abort the host
+  process; wrap calls in `catch_unwind` if you need to recover.
 
-### Useful Commands
+## Commit conventions
 
-```bash
-# Build the workspace
-cargo build --workspace --all-features
-
-# Run all tests
-cargo test --workspace --all-features
-
-# Run benchmarks
-cargo bench --workspace
-
-# Check formatting
-cargo fmt --all -- --check
-
-# Run clippy lints
-cargo clippy --workspace --all-targets --all-features -- -D warnings
-
-# Run all checks (fmt + lint + audit + test)
-just check
-```
-
-## Branch Naming
-
-Use descriptive branch names with prefixes:
-
-| Prefix | Purpose |
-|--------|---------|
-| `feat/` | New features |
-| `fix/` | Bug fixes |
-| `docs/` | Documentation changes |
-| `refactor/` | Code refactoring |
-| `test/` | Adding or updating tests |
-| `chore/` | Maintenance tasks |
-
-Examples:
-- `feat/add-parallel-lattice`
-- `fix/cvp-sampling-overflow`
-- `docs/update-algorithm-explanation`
-
-## Commit Conventions
-
-This project follows [Conventional Commits](https://www.conventionalcommits.org/). Each commit message should be structured as:
+This project uses [Conventional Commits](https://www.conventionalcommits.org/).
 
 ```
 <type>(<scope>): <description>
@@ -94,178 +58,47 @@ This project follows [Conventional Commits](https://www.conventionalcommits.org/
 [optional footer(s)]
 ```
 
-### Types
+Valid scopes (crate names): `core`, `lattice`, `tensor`, `algebra`, `cli`.
 
-| Type | Description |
-|------|-------------|
-| `feat` | A new feature |
-| `fix` | A bug fix |
-| `docs` | Documentation only changes |
-| `style` | Code style changes (formatting, missing semi-colons, etc.) |
-| `refactor` | Code change that neither fixes a bug nor adds a feature |
-| `perf` | A code change that improves performance |
-| `test` | Adding missing tests or correcting existing tests |
-| `chore` | Changes to the build process or auxiliary tools |
+## Running the checks
 
-### Examples
+```bash
+# Format the whole workspace
+cargo fmt --all
 
-```
-feat(tensor): add MPO spectral amplification support
+# Run the test suite
+cargo test --workspace --all-features
 
-fix(lattice): handle edge case in BKZ reduction
+# Lint with clippy
+cargo clippy --workspace --all-targets --all-features -- -D warnings
 
-docs: update README with new examples
-
-test(algebra): add integration tests for GF(2) solver
-
-chore(ci): update Rust toolchain version
+# Audit dependencies
+cargo audit
 ```
 
-### Scope
+…or run them all with `just check`.
 
-The scope should be the crate name:
-- `core`
-- `lattice`
-- `tensor`
-- `algebra`
-- `cli`
+## Coding standards
 
-## Pull Request Process
+- Follow `rustfmt` defaults.
+- Use `thiserror` for library error types.
+- Prefer workspace dependencies over direct `Cargo.toml` entries.
+- No `unsafe` unless absolutely necessary; if needed, include detailed
+  safety comments.
 
-1. **Update documentation** if your change affects user-facing behavior
-2. **Add tests** for new functionality
-3. **Ensure all checks pass**:
-   ```bash
-   just check
-   ```
-4. **Write a clear PR description** explaining:
-   - What changed and why
-   - Related issue number (if applicable)
-   - Testing performed
-5. **Request review** from maintainers
-6. **Address feedback** promptly
+## Where to start
 
-### PR Title Format
+- `good first issue` label on GitHub.
+- `documentation` label — these are small, isolated, and don't require
+  deep familiarity with the algorithm.
+- `help wanted` label — bigger items where maintainer review is
+  especially welcome.
 
-Follow the same convention as commit messages:
-```
-feat(tensor): add adaptive bond dimension control
-```
+## Getting help
 
-## Coding Standards
+- Open a
+  [discussion](https://github.com/sachncs/tensift/discussions).
+- Ask in an existing issue.
+- Reach out to the maintainers.
 
-### Rust Style
-
-- Follow standard Rust conventions (`rustfmt` defaults)
-- Use `snake_case` for functions and variables
-- Use `PascalCase` for types and traits
-- Use `SCREAMING_SNAKE_CASE` for constants
-- Write documentation for all public items
-
-### Error Handling
-
-- Use `thiserror` for library error types
-- Provide meaningful error messages
-- Avoid `unwrap()` in production code (use in tests/examples only)
-
-### Safety
-
-- **Zero unsafe code** is the project standard
-- If unsafe is absolutely necessary, provide detailed safety comments
-
-### Dependencies
-
-- Prefer workspace dependencies defined in root `Cargo.toml`
-- Justify any new dependencies in PR description
-- Check licenses with `cargo deny`
-
-## Testing
-
-### Unit Tests
-
-Place unit tests in the same file as the code they test:
-
-```rust
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn test_my_function() {
-        assert_eq!(my_function(42), 42);
-    }
-}
-```
-
-### Integration Tests
-
-Place integration tests in `crates/<crate>/tests/`:
-
-```rust
-// crates/tensift-algebra/tests/integration_tests.rs
-use tensift_algebra::*;
-
-#[test]
-fn test_factorization_pipeline() {
-    // Test the full pipeline
-}
-```
-
-### Benchmarks
-
-Use Criterion for benchmarks in `crates/<crate>/benches/`:
-
-```rust
-use criterion::{black_box, criterion_group, criterion_main, Criterion};
-
-fn bench_my_function(c: &mut Criterion) {
-    c.bench_function("my_function", |b| {
-        b.iter(|| my_function(black_box(42)))
-    });
-}
-
-criterion_group!(benches, bench_my_function);
-criterion_main!(benches);
-```
-
-## Documentation
-
-- Write doc comments for all public items
-- Include examples in doc comments where appropriate
-- Keep documentation up to date with code changes
-- Use `cargo doc --open` to preview documentation locally
-
-### Documentation Style
-
-```rust
-/// Brief description of the function.
-///
-/// # Arguments
-///
-/// * `input` - Description of the input
-///
-/// # Returns
-///
-/// Description of the return value
-///
-/// # Examples
-///
-/// ```
-/// use tensift_core::my_module;
-/// let result = my_module::my_function(42);
-/// assert_eq!(result, 42);
-/// ```
-pub fn my_function(input: i32) -> i32 {
-    input
-}
-```
-
-## Questions?
-
-If you have questions about contributing, feel free to:
-
-1. Open a [discussion](https://github.com/sachncs/tensift/discussions)
-2. Ask in an existing issue
-3. Reach out to maintainers
-
-Thank you for contributing to tensift!
+Thank you for contributing!

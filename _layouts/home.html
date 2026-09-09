@@ -1,0 +1,160 @@
+---
+layout: default
+---
+
+<header class="home-hero">
+  <div class="home-hero-inner">
+    <p class="home-eyebrow">{{ site.title }}</p>
+    <h1 class="home-title">{{ site.tagline }}</h1>
+    <p class="home-lede">
+      tensift splits a semiprime into its two prime factors using a 7-stage pipeline
+      that combines Schnorr's lattice construction, BKZ / LLL basis reduction, CVP
+      approximation, and a Tree Tensor Network (TTN) variational ansatz.
+    </p>
+    <div class="home-actions">
+      <a class="btn btn-primary" href="{{ '/getting-started/' | relative_url }}">Get started →</a>
+      <a class="btn btn-secondary" href="{{ '/concepts/algorithm-overview/' | relative_url }}">Read the algorithm overview</a>
+      <a class="btn btn-ghost" href="https://github.com/{{ site.repository }}">View on GitHub ↗</a>
+    </div>
+  </div>
+</header>
+
+<section class="home-section">
+  <h2 class="home-section-title">What you can do</h2>
+  <div class="home-grid">
+    <article class="home-card">
+      <h3>Factor from the terminal</h3>
+      <p>
+        Install <code>tensift-cli</code> from crates.io and factor a number
+        with a single command. Same seed, same input, same answer.
+      </p>
+      <p><a href="{{ '/tutorials/factor-from-cli/' | relative_url }}">Walk through the CLI →</a></p>
+    </article>
+    <article class="home-card">
+      <h3>Embed in Rust code</h3>
+      <p>
+        Use <code>tensift-algebra</code> as a library. One call to
+        <code>factorize(&amp;n, &amp;config)</code> drives the whole pipeline.
+      </p>
+      <p><a href="{{ '/tutorials/use-as-library/' | relative_url }}">Library quick start →</a></p>
+    </article>
+    <article class="home-card">
+      <h3>Inspect the algorithm</h3>
+      <p>
+        Read the stage-by-stage documentation to see exactly how lattice
+        construction, basis reduction, CVP, and tensor-network sampling fit
+        together.
+      </p>
+      <p><a href="{{ '/docs/stage-1-lattice-construction/' | relative_url }}">Stage 1 →</a></p>
+    </article>
+    <article class="home-card">
+      <h3>Tinker and extend</h3>
+      <p>
+        Five focused crates with clear boundaries, 121 unit + 14 integration
+        tests, and a deterministic RNG pipeline. Designed for reading and
+        hacking on.
+      </p>
+      <p><a href="{{ '/contributing/' | relative_url }}">Contributing guide →</a></p>
+    </article>
+  </div>
+</section>
+
+<section class="home-section home-section-alt">
+  <h2 class="home-section-title">The 7-stage pipeline</h2>
+  <div class="home-pipeline">
+    <ol class="pipeline">
+      <li>
+        <span class="pipeline-num">1</span>
+        <div>
+          <h4>Lattice construction</h4>
+          <p>Build a Schnorr lattice that encodes the semiprime as a CVP instance.</p>
+        </div>
+      </li>
+      <li>
+        <span class="pipeline-num">2</span>
+        <div>
+          <h4>Basis reduction</h4>
+          <p>LLL, Segment LLL, or BKZ with pruning to improve the basis.</p>
+        </div>
+      </li>
+      <li>
+        <span class="pipeline-num">3</span>
+        <div>
+          <h4>CVP baseline</h4>
+          <p>Babai rounding and Klein sampling give a starting approximation.</p>
+        </div>
+      </li>
+      <li>
+        <span class="pipeline-num">4</span>
+        <div>
+          <h4>Tensor network ansatz</h4>
+          <p>Build a Tree Tensor Network over the residual Hamiltonian.</p>
+        </div>
+      </li>
+      <li>
+        <span class="pipeline-num">5</span>
+        <div>
+          <h4>Optimization &amp; sampling</h4>
+          <p>TTN sweeps, OPES, and MPO spectral amplification find low-energy configs.</p>
+        </div>
+      </li>
+      <li>
+        <span class="pipeline-num">6</span>
+        <div>
+          <h4>Smoothness verification</h4>
+          <p>Trial division over the factor base, with sr-pair construction.</p>
+        </div>
+      </li>
+      <li>
+        <span class="pipeline-num">7</span>
+        <div>
+          <h4>Factor extraction</h4>
+          <p>GF(2) linear algebra + GCD turns smooth relations into the factors.</p>
+        </div>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<section class="home-section">
+  <h2 class="home-section-title">Project at a glance</h2>
+  <div class="home-grid home-grid-stats">
+    <div class="stat">
+      <div class="stat-number">5</div>
+      <div class="stat-label">focused crates</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number">135</div>
+      <div class="stat-label">tests (121 unit + 14 integration)</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number">4</div>
+      <div class="stat-label">Criterion benchmarks</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number">0</div>
+      <div class="stat-label">lines of <code>unsafe</code> code</div>
+    </div>
+  </div>
+</section>
+
+<section class="home-section home-section-alt">
+  <h2 class="home-section-title">Where to go next</h2>
+  <ul class="home-next">
+    <li>
+      <strong>New to tensift?</strong>
+      Start at <a href="{{ '/getting-started/' | relative_url }}">Getting Started</a>.
+    </li>
+    <li>
+      <strong>Coming from the paper?</strong>
+      Skim <a href="{{ '/concepts/algorithm-overview/' | relative_url }}">the algorithm overview</a>
+      and then the <a href="{{ '/docs/stage-1-lattice-construction/' | relative_url }}">stage-by-stage documentation</a>.
+    </li>
+    <li>
+      <strong>Want to extend it?</strong>
+      Read the <a href="{{ '/api/crate-map/' | relative_url }}">crate map</a>,
+      the <a href="{{ '/docs/implementation-notes/' | relative_url }}">implementation notes</a>,
+      and the <a href="{{ '/contributing/' | relative_url }}">contributing guide</a>.
+    </li>
+  </ul>
+</section>

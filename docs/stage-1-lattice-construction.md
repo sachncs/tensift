@@ -1,3 +1,11 @@
+---
+layout: docs
+title: Stage 1 — Lattice construction
+section: Stage docs
+subtitle: The Schnorr lattice that encodes a semiprime as a CVP instance.
+github_path: docs/stage-1-lattice-construction.md
+---
+
 # Stage 1: Lattice Construction
 
 ## Schnorr Lattice Construction for Integer Factorization

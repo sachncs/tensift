@@ -1,3 +1,11 @@
+---
+layout: docs
+title: Baseline (pre-refactor)
+section: Project
+subtitle: What the workspace looked like before the rebrand and the principal-engineer refactor.
+github_path: docs/baseline.md
+---
+
 # Baseline (pre-refactor)
 
 Recorded before the principal-engineer refactor began. Toolchain:

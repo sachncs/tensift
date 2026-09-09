@@ -1,3 +1,11 @@
+---
+layout: docs
+title: Stage 3 — CVP baseline
+section: Stage docs
+subtitle: Babai rounding and Klein sampling for closest-vector approximation.
+github_path: docs/stage-3-cvp-baseline.md
+---
+
 # Stage 3: CVP Baseline
 
 ## Babai Rounding and Klein Sampling for Closest Vector Approximation

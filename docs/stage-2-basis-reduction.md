@@ -1,3 +1,11 @@
+---
+layout: docs
+title: Stage 2 — Basis reduction
+section: Stage docs
+subtitle: LLL, Segment LLL, BKZ, and pruning for high-quality lattice bases.
+github_path: docs/stage-2-basis-reduction.md
+---
+
 # Stage 2: Lattice Basis Reduction
 
 ## LLL, Segment LLL, BKZ, and Pruning for High-Quality Lattice Bases

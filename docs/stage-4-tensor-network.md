@@ -1,3 +1,11 @@
+---
+layout: docs
+title: Stage 4 — Tensor network ansatz
+section: Stage docs
+subtitle: Tree Tensor Network, belief-propagation gauging, and adaptive-weighted topology.
+github_path: docs/stage-4-tensor-network.md
+---
+
 # Stage 4: Tensor Network Ansatz
 
 ## Tree Tensor Network, Belief Propagation Gauging, and Adaptive-Weighted Topology

@@ -1,3 +1,11 @@
+---
+layout: docs
+title: Stage 6 — Smoothness verification
+section: Stage docs
+subtitle: Trial division, smooth-relation extraction, and validation.
+github_path: docs/stage-6-smoothness-verification.md
+---
+
 # Stage 6: Smoothness Verification
 
 ## Trial Division, Smooth Relation Extraction, and Validation

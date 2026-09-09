@@ -1,3 +1,11 @@
+---
+layout: docs
+title: Stage 7 — Factor extraction
+section: Stage docs
+subtitle: GF(2) linear algebra, kernel basis, and GCD-based factor recovery.
+github_path: docs/stage-7-factor-extraction.md
+---
+
 # Stage 7: Factor Extraction
 
 ## GF(2) Linear Algebra, Kernel Basis, and GCD-Based Factor Recovery

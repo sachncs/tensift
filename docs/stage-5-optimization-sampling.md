@@ -1,3 +1,11 @@
+---
+layout: docs
+title: Stage 5 — Optimization & sampling
+section: Stage docs
+subtitle: TTN variational sweeps, OPES, MPO spectral amplification, and fallback samplers.
+github_path: docs/stage-5-optimization-sampling.md
+---
+
 # Stage 5: Optimization and Sampling
 
 ## TTN Variational Sweeps, OPES, MPO Spectral Amplification, and Fallback Samplers

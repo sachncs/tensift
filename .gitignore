@@ -27,3 +27,12 @@ perf.data*
 # Test artifacts
 *.tmp
 *.log
+
+# Vite / Node
+site/node_modules/
+site/dist/
+site/.vite/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
